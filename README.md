@@ -2,7 +2,7 @@
 
 ---
 
-## Programming languages comparison:
+## Programming languages comparison, single thread:
 
 ![pi_cam_preview_usb.py](https://github.com/antor44/sigmoid-comparison/blob/main/Test_ML_algorithm.jpg)
 
