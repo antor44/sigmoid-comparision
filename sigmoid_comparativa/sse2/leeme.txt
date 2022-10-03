@@ -1,0 +1,50 @@
+
+
+gcc  -DUSE_SSE2 -O3 -m64 sse_mathfun_test.c  -lm -mfpmath=sse -msse
+
+
+( opcion?: gcc -mfpmath=sse -msse -O2 -Wall -W sse_mathfun_test.c -lm)
+
+
+checking sines on [0*Pi, 1*Pi]
+max deviation from sinf(x): 5.96046e-08 at 0.717296980261*Pi, max deviation from cephes_sin(x): 0
+max deviation from cosf(x): 5.96046e-08 at  0.80417675883*Pi, max deviation from cephes_cos(x): 0
+deviation of sin(x)^2+cos(x)^2-1: 1.78814e-07 (ref deviation is 1.51165e-07)
+   ->> precision OK for the sin_ps / cos_ps / sincos_ps <<-
+
+checking sines on [-1000*Pi, 1000*Pi]
+max deviation from sinf(x): 5.96046e-08 at -999.820056289*Pi, max deviation from cephes_sin(x): 0
+max deviation from cosf(x): 5.96046e-08 at -999.820056289*Pi, max deviation from cephes_cos(x): 0
+deviation of sin(x)^2+cos(x)^2-1: 1.78814e-07 (ref deviation is 1.19209e-07)
+   ->> precision OK for the sin_ps / cos_ps / sincos_ps <<-
+
+checking exp/log [-60, 60]
+max (relative) deviation from expf(x): 1.18699e-07 at  58.2286491394, max deviation from cephes_expf(x): 0
+max (absolute) deviation from logf(x): 1.19209e-07 at  1.76604557037, max deviation from cephes_logf(x): 0
+deviation of x - log(exp(x)): 1.19209e-07 (ref deviation is 5.96046e-08)
+   ->> precision OK for the exp_ps / log_ps <<-
+
+exp([        -1000,          -100,           100,          1000]) = [            0,             0, 2.4061436e+38, 2.4061436e+38]
+exp([         -nan,           inf,          -inf,           nan]) = [2.4061436e+38, 2.4061436e+38,             0, 2.4061436e+38]
+log([            0,           -10,         1e+30, 1.0005271e-42]) = [         -nan,          -nan,     69.077553,    -87.336548]
+log([         -nan,           inf,          -inf,           nan]) = [   -87.336548,     88.722839,          -nan,    -87.336548]
+sin([         -nan,           inf,          -inf,           nan]) = [         -nan,          -nan,           nan,           nan]
+cos([         -nan,           inf,          -inf,           nan]) = [          nan,          -nan,          -nan,           nan]
+sin([       -1e+30,       -100000,         1e+30,        100000]) = [          inf,  -0.035749275,          -inf,   0.035749275]
+cos([       -1e+30,       -100000,         1e+30,        100000]) = [         -nan,    -0.9993608,          -nan,    -0.9993608]
+benching                 sinf .. ->   55.5 millions of vector evaluations/second ->  12 cycles/value on a 2600MHz computer
+benching                 cosf .. ->   57.3 millions of vector evaluations/second ->  11 cycles/value on a 2600MHz computer
+benching         sincos (x87) .. ->    9.1 millions of vector evaluations/second ->  71 cycles/value on a 2600MHz computer
+benching                 expf .. ->   61.4 millions of vector evaluations/second ->  11 cycles/value on a 2600MHz computer
+benching                 logf .. ->   55.6 millions of vector evaluations/second ->  12 cycles/value on a 2600MHz computer
+benching          cephes_sinf .. ->   52.5 millions of vector evaluations/second ->  12 cycles/value on a 2600MHz computer
+benching          cephes_cosf .. ->   41.9 millions of vector evaluations/second ->  15 cycles/value on a 2600MHz computer
+benching          cephes_expf .. ->   18.3 millions of vector evaluations/second ->  35 cycles/value on a 2600MHz computer
+benching          cephes_logf .. ->   20.2 millions of vector evaluations/second ->  32 cycles/value on a 2600MHz computer
+benching               sin_ps .. ->   54.1 millions of vector evaluations/second ->  12 cycles/value on a 2600MHz computer
+benching               cos_ps .. ->   54.8 millions of vector evaluations/second ->  12 cycles/value on a 2600MHz computer
+benching            sincos_ps .. ->   54.6 millions of vector evaluations/second ->  12 cycles/value on a 2600MHz computer
+benching               exp_ps .. ->   42.6 millions of vector evaluations/second ->  15 cycles/value on a 2600MHz computer
+benching               log_ps .. ->   41.0 millions of vector evaluations/second ->  16 cycles/value on a 2600MHz computer
+
+
