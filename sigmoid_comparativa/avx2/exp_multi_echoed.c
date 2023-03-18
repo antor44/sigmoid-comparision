@@ -56,11 +56,14 @@ int main(){
       	pthread_join(tid[i], NULL);
     }
 
+
+	
 #ifdef PRINT_ARRAY
     for (i=0;i<MAXSIZE;i++){
         printf("x=%.20lf, e^x=%.20lf\n",xv[i],yv[i]);
     }
 #endif
+
 
     return 0;
 }
