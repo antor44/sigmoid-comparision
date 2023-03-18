@@ -1,5 +1,4 @@
-# ML codes/sigmoid comparison with different programming languages
-
+# ML codes/sigmoid comparison with different programming languages and with multithreading
 ---
 
 ## Programming languages comparison, single thread:
