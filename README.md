@@ -9,7 +9,7 @@ Most codes are based on standard mathematical libraries of the corresponding pro
 
 Matlab and Octave algorithms are calculated in three modes: by passing an entire matrix to the library that calculates the exp function of each element of the matrix, by passing columns or rows, and by passing each element of the matrix individually.
 
-Octave codes are equal, but Matlab code runs on a remote virtual machine provided by Matlab.
+Matlab and Octave codes are equal, but Matlab code runs on a remote virtual machine provided by Matlab.
 
 Assembly code is a conventional Taylor algorithm except it does not include constants.
 
