@@ -18,7 +18,7 @@ The gcc exp and gcc expf codes are based on functions from the standard mathemat
 gcc AVX2 code is based on the same Taylor algorithm with constants, like standard mathematical libraries.
 
 
-## Comparison of C multithreading codes from different approaches, same base algorithms:
+## Comparison of C multithreading codes from different approaches, same base algorithm:
 
 ![pi_cam_capture_usb.py](https://github.com/antor44/sigmoid-comparison/blob/main/exp_test3.jpg)
 
