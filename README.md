@@ -1,4 +1,4 @@
-# ML codes/sigmoid comparison with different programming languages and with multithreading
+# Comparing Sigmoid Calculation Efficiency: Multithreading and Single Threading Across Programming Languages in Low-Level ML Code
 ---
 
 ## Programming languages comparison, single thread codes, some with different algorithms:
