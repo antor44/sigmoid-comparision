@@ -1,6 +1,9 @@
 # Comparing Sigmoid Calculation Efficiency: Multithreading and Single Threading Across Programming Languages in Low-Level ML Code
 ---
 
+After researching some codes of main basic algorithms in low-level Machine Learning, such as the logistic regression algorithm, the most computationally expensive function for the processor is the mathematical calculation of the sigmoid function or computing exp on individual elements of a matrix.
+
+
 ## Programming languages comparison, single thread codes, some with different algorithms:
 
 ![pi_cam_preview_usb.py](https://github.com/antor44/sigmoid-comparison/blob/main/Test_ML_algorithm.jpg)
