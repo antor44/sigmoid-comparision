@@ -22,4 +22,4 @@ gcc AVX2 code is based on the same Taylor algorithm with constants, like standar
 
 ![pi_cam_capture_usb.py](https://github.com/antor44/sigmoid-comparison/blob/main/exp_test3.jpg)
 
-All codes are based on the same Taylor algorithm with constants, same relative error. The gcc exp and gcc expf codes rely on functions from the standard mathematical library in C, while the gcc SSE2 code is based on the well-known [Julien Pommier library](http://gruntthepeon.free.fr/ssemath/). The gcc AVX2 code also employs the Taylor algorithm with constants, same as standard mathematical libraries.
+All codes are based on the same Taylor algorithm with constants, same relative error. The gcc exp and gcc expf codes rely on functions from the standard mathematical library in C, while the gcc SSE2 (4x float) code is based on the well-known [Julien Pommier library](http://gruntthepeon.free.fr/ssemath/). The gcc AVX2 (8x float) code also employs the Taylor algorithm with constants, same as standard mathematical libraries.
