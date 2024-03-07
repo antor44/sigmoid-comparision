@@ -8,7 +8,7 @@ After researching some codes of main basic algorithms in low-level Machine Learn
 
 ![pi_cam_preview_usb.py](https://github.com/antor44/sigmoid-comparison/blob/main/Test_ML_algorithm.jpg)
 
-Most codes are based on standard mathematical libraries of the corresponding programming language, all relying on the same Taylor algorithm with constants, but they may vary slightly in each programming language.
+Most codes are based on standard mathematical libraries of the corresponding programming language, all relying on the same Taylor algorithm with constants. This holds true at least for positive numbers. However, it may vary slightly in each programming language. For negative numbers, the Taylor algorithm may be replaced by another due to the issue of partial variables with very high values or overflowing. Alternatively, the same algorithm, such as [avx_mathfun](https://github.com/reyoung/avx_mathfun), may be employed, utilizing Taylor with range reduction combined with a Chebyshev-type approximation polynomial to compute 8 exp in parallel with AVX2 instructions. Variations of Taylor may also be used for higher precision variables than double. For [quad precision or 128 bits](https://codebrowser.dev/glibc/glibc/sysdeps/ieee754/ldbl-128/e_expl.c.html), the standard C employs a table-based algorithm using the Abraham Ziv's formula, ['Fast Evaluation of Elementary Mathematical Functions with Correctly Rounded Last Bit'](https://dl.acm.org/doi/abs/10.1145/114697.116813).
 
 Matlab and Octave algorithms are calculated in three modes: by passing an entire matrix to the library that calculates the exp function of each element of the matrix, by passing columns or rows, and by passing each element of the matrix individually.
 
