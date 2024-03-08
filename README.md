@@ -3,12 +3,20 @@
 
 After researching some codes of main basic algorithms in low-level Machine Learning, such as the logistic regression algorithm, the most computationally expensive function for the processor is the mathematical calculation of the sigmoid function or computing exp on individual elements of a matrix.
 
+Most codes rely on the standard mathematical libraries of their respective programming languages. However, they may vary slightly depending on the implementation of the compiler, C runtime, and the processor. Traditional Taylor polynomial calculations or the Maclaurin expansion version are inefficient. For negative numbers, the Taylor algorithm must be replaced due to issues with partial variables having very high values or overflowing. 
+
+Modern techniques often involve the use of a lookup table to store precalculated values and polynomial adjustments to approximate the exponential function across a wider range of values. While these techniques share conceptual similarities with Taylor polynomials and Maclaurin expansion, they are not directly based on them. 
+
+The employed algorithms utilize a series of techniques, such as range reduction and polynomial evaluation, to accurately and efficiently calculate the exponential function. This includes double-precision floating-point operations, bit manipulation, and advanced mathematical calculations to handle special cases and optimize performance. 
+
+Algorithms like [avx_mathfun](https://github.com/reyoung/avx_mathfun) use range reduction in combination with a Chebyshev approximation-like polynomial to compute 8 exponentials in parallel with AVX instructions. 
+
+Variations may also be used for higher precision variables than double. For [quad precision or 128 bits](https://codebrowser.dev/glibc/glibc/sysdeps/ieee754/ldbl-128/e_expl.c.html), the standard C employs a table-based algorithm using Abraham Ziv's formula, ['Fast Evaluation of Elementary Mathematical Functions with Correctly Rounded Last Bit'](https://dl.acm.org/doi/abs/10.1145/114697.116813).
 
 ## Programming languages comparison, single thread codes, some with different algorithms:
 
 ![pi_cam_preview_usb.py](https://github.com/antor44/sigmoid-comparison/blob/main/Test_ML_algorithm.jpg)
 
-Most codes are based on standard mathematical libraries of the corresponding programming language, all relying on Taylor algorithm with constants. This holds true at least for positive numbers. However, it may vary slightly in each programming language. For negative numbers, the Taylor algorithm may be replaced by another due to the issue of partial variables with very high values or overflowing. Alternatively, the same algorithm, such as [avx_mathfun](https://github.com/reyoung/avx_mathfun), may be employed, utilizing Taylor with range reduction combined with a Chebyshev-type approximation polynomial to compute 8 exp in parallel with AVX2 instructions. Variations of Taylor may also be used for higher precision variables than double. For [quad precision or 128 bits](https://codebrowser.dev/glibc/glibc/sysdeps/ieee754/ldbl-128/e_expl.c.html), the standard C employs a table-based algorithm using the Abraham Ziv's formula, ['Fast Evaluation of Elementary Mathematical Functions with Correctly Rounded Last Bit'](https://dl.acm.org/doi/abs/10.1145/114697.116813).
 
 Matlab and Octave algorithms are calculated in three modes: by passing an entire matrix to the library that calculates the exp function of each element of the matrix, by passing columns or rows, and by passing each element of the matrix individually.
 
@@ -25,4 +33,7 @@ gcc AVX2 code is based on the same Taylor algorithm with constants, like standar
 
 ![pi_cam_capture_usb.py](https://github.com/antor44/sigmoid-comparison/blob/main/exp_test3.jpg)
 
-All codes are based on the same Taylor algorithm with constants, same relative error. The gcc exp (double) and gcc expf (float) codes rely on functions from the standard mathematical library in C, while the gcc SSE2 (4x float) code is based on the well-known [Julien Pommier library](http://gruntthepeon.free.fr/ssemath/). The gcc AVX2 (8x float) code also employs the Taylor algorithm with constants, such as avx_mathfun.
+
+All codes are based on the same algorithm or have the same relative error. The gcc exp (double) and gcc expf (float) codes rely on functions from the standard mathematical library in C, while the gcc SSE2 (4x float) code is based on the well-known [Julien Pommier library](http://gruntthepeon.free.fr/ssemath/). The gcc AVX2 (8x float) code also employs an algorithm similar to avx_mathfun.
+
+
