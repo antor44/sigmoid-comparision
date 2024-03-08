@@ -3,13 +3,13 @@
 
 After researching some codes of main basic algorithms in low-level Machine Learning, such as the logistic regression algorithm, the most computationally expensive function for the processor is the mathematical calculation of the sigmoid function or computing exp on individual elements of a matrix.
 
-Most codes rely on the standard mathematical libraries of their respective programming languages. However, they may vary slightly depending on the implementation of the compiler, C runtime, and the processor. Traditional Taylor polynomial calculations or the Maclaurin expansion version are inefficient. For negative numbers, the Taylor algorithm must be replaced due to issues with partial variables having very high values or overflowing. 
+For the calculation of the exponential function, most codes rely on the standard mathematical libraries of their respective programming languages. However, they may vary slightly depending on the implementation of the compiler, C runtime, and the processor. Traditional Taylor polynomial calculations or the Maclaurin expansion version are inefficient. For negative numbers, the Taylor algorithm must be replaced due to issues with partial variables having very high values or overflowing. 
 
 Modern techniques often involve the use of a lookup table to store precalculated values and polynomial adjustments to approximate the exponential function across a wider range of values. While these techniques share conceptual similarities with Taylor polynomials and Maclaurin expansion, they are not directly based on them. 
 
 The employed algorithms utilize a series of techniques, such as range reduction and polynomial evaluation, to accurately and efficiently calculate the exponential function. This includes double-precision floating-point operations, bit manipulation, and advanced mathematical calculations to handle special cases and optimize performance. 
 
-Algorithms like [avx_mathfun](https://github.com/reyoung/avx_mathfun) use range reduction in combination with a Chebyshev approximation-like polynomial to compute 8 exponentials in parallel with AVX instructions. 
+Algorithms like [avx_mathfun](https://github.com/reyoung/avx_mathfun) use range reduction in combination with a Chebyshev approximation-like polynomial to compute exponentials in parallel with AVX instructions. 
 
 Variations may also be used for higher precision variables than double. For [quad precision or 128 bits](https://codebrowser.dev/glibc/glibc/sysdeps/ieee754/ldbl-128/e_expl.c.html), the standard C employs a table-based algorithm using Abraham Ziv's formula, ['Fast Evaluation of Elementary Mathematical Functions with Correctly Rounded Last Bit'](https://dl.acm.org/doi/abs/10.1145/114697.116813).
 
@@ -26,7 +26,7 @@ Assembly code is a conventional Taylor algorithm except it does not include cons
 
 The gcc exp and gcc expf codes are based on functions from the standard mathematical library in C.
 
-gcc AVX2 code is based on the same Taylor algorithm with constants, like standard mathematical libraries.
+The gcc AVX2 code is based on the same algorithm as avx_mathfun. It utilizes range reduction in combination with a Chebyshev approximation-like polynomial to compute 8 exponentials in parallel with AVX2 instructions.
 
 
 ## Comparison of C multithreading codes from different approaches, same base algorithm:
