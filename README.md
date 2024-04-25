@@ -32,6 +32,6 @@ The gcc AVX2 code is based on the same algorithm as avx_mathfun. It utilizes ran
 ![pi_cam_capture_usb.py](https://github.com/antor44/sigmoid-comparison/blob/main/exp_test3.jpg)
 
 
-All codes are based on the same algorithm or have the same relative error. The gcc exp (double) and gcc expf (float) codes rely on functions from the standard mathematical library in C, while the gcc SSE2 (4x float) code is based on the well-known [Julien Pommier library](http://gruntthepeon.free.fr/ssemath/). The gcc AVX2 (8x float) is also based on the same algorithm as avx_mathfun.
+All codes are either based on the same algorithm or share the same relative error within the range of input variables [-5, 5]. The gcc exp (double) and gcc expf (float) codes rely on functions from the standard mathematical library in C, while the gcc SSE2 (4x float) code is based on the well-known [Julien Pommier library](http://gruntthepeon.free.fr/ssemath/). The gcc AVX2 (8x float) is also based on the same algorithm as avx_mathfun.
 
 
