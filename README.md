@@ -148,19 +148,11 @@ plt.show()
 ![Sigmoid comparison](https://github.com/antor44/sigmoid-comparison/blob/main/sigmoid_comparison.jpg)
 
 
+The output graph compares the performance of common activation functions calculated with Python's NumPy library. While NumPy is lauded for its user-friendliness, this comparison highlights a crucial consideration: the potential performance gap compared to optimized low-level implementations.
 
-The output graph compares the different activation functions using Python's NumPy library. While NumPy is popular for its user-friendliness, it's important to understand how its performance compares to optimized low-level code.
+In this benchmark, we measured the time taken to perform calculations on 1 million elements, repeating the process 100,000 times, and writing the final 1 million results to a file. The differences were significant. Our optimized C code leveraging AVX2 instructions consistently outperformed NumPy, even when limited to a single thread, often by a factor of 10x or more. The performance advantages of the C code would become even more pronounced with multithreading, as it could effectively utilize multiple CPU cores.
 
-We measured again the time taken to perform calculations on 1 million elements, repeating the process 100,000 times, then wrote the final 1 million results to a file once. The differences were striking:
-
-Our optimized C code using AVX2 instructions significantly outperformed NumPy, even when the C code used only a single thread.
-
-With multithreading, the performance gap between C and NumPy would become even larger, as the C code could more effectively leverage the available CPU cores.
-
-For reference, NumPy's performance in this single-threaded, CPU-bound benchmark is closer to what you might observe in environments like Matlab or Octave without explicit GPU acceleration. While Matlab provides relatively straightforward multithreading options, achieving comparable parallelism in Octave is generally more complex.
-
-Key Takeaway? When maximum performance is paramount, the benefits of lower-level optimizations and parallel programming techniques become clear, especially when compared to high-level libraries like NumPy.
-
+For context, NumPy's performance in this single-threaded, CPU-bound scenario is more akin to what one might observe in environments like Matlab or Octave without explicit GPU acceleration. It's worth noting that while Matlab offers relatively straightforward multithreading options, replicating similar parallelism in Octave can be more involved.
 
 
 ### Key Observations
