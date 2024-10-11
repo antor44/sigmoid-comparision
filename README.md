@@ -80,9 +80,9 @@ def sigmoid_approx_poly(x):
 def relu(x):
     return np.maximum(0, x)
 
-# Generate 1 million points between -5 and 5
+# Generate 1 million points between -5 and 5 as float32
 num_points_calc = 1000000
-x_calc = np.linspace(-5, 5, num_points_calc)
+x_calc = np.linspace(-5, 5, num_points_calc, dtype=np.float32)
 
 functions = [
     ("Sigmoid Original", sigmoid),
@@ -124,7 +124,7 @@ for name, func in functions:
     if name != "Sigmoid Original":
         y_true = sigmoid(x_calc)
         mse = np.mean((y_true - y) ** 2)
-        print(f"{name} - Time: {total_time:.6f} s - Error (MSE): {ms6f}")
+        print(f"{name} - Time: {total_time:.6f} s - Error (MSE): {mse:.6f}")
     else:
         print(f"{name} - Time: {total_time:.6f} s")
 
@@ -150,9 +150,9 @@ plt.show()
 
 The output graph visualizes several common activation functions, calculated here using Python's NumPy library. While NumPy is favored for its ease of use and versatility, a deeper look reveals a crucial performance consideration: the potential speed differences compared to highly optimized low-level implementations.
 
-In this benchmark, we measured the time taken to perform calculations on 1 million elements using 64-bit (double-precision) floating-point numbers, repeating the process 100,000 times, and writing the final 1 million results to a file. The differences were significant. Our optimized C code, which leverages AVX2 instructions and operates on single-precision (float) data, consistently outperformed NumPy, even when limited to a single thread, by a factor of approximately 10x. The performance advantages of the C code would become even more pronounced with multithreading, as it could effectively utilize multiple CPU cores.
+To illustrate this, we measured the time taken to perform calculations on one million 32-bit (single-precision) floating-point elements, repeating the process 100,000 times, and writing the final results to a file. Our optimized C code, leveraging AVX2 instructions, consistently outperformed the NumPy implementation by approximately a factor of 2x. It's worth noting that these performance gains in C are specific to scenarios involving explicit vectorization and would likely be even greater when utilizing multithreading.
 
-For context, NumPy's performance in this single-threaded, CPU-bound scenario is more akin to what one might observe in environments like Matlab or Octave without explicit GPU acceleration. It's worth noting that while Matlab offers relatively straightforward multithreading options, replicating similar parallelism in Octave can be more involved.
+For context, NumPy's performance in this type of CPU-bound scenario, where entire matrices are passed to functions, is closer to what one might observe in environments like Matlab or Octave without explicit GPU acceleration. While Matlab offers relatively straightforward multithreading options, achieving comparable parallelism in Octave can be more involved.
 
 
 ### Key Observations
