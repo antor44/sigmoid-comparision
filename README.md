@@ -150,30 +150,90 @@ plt.show()
 
 The output graph visualizes several common activation functions, calculated here using Python's NumPy library. While NumPy is favored for its ease of use and versatility, a deeper look reveals a crucial performance consideration: the potential speed differences compared to highly optimized low-level implementations.
 
-To illustrate this, we measured the time taken to perform calculations on one million 32-bit (single-precision) floating-point elements, repeating the process 100,000 times, and writing the final results to a file. Our optimized C code, leveraging AVX2 instructions, consistently outperformed the NumPy implementation by approximately a factor of 2x. It's worth noting that these performance gains in C are specific to scenarios involving explicit vectorization and would likely be even greater when utilizing multithreading.
+To illustrate this, we measured the time taken to perform calculations on one million 32-bit (single-precision) floating-point elements, repeating the process 100,000 times, and writing the final results to a file. Our optimized C code, leveraging AVX2 instructions, consistently outperformed the single-threaded NumPy implementation by approximately a factor of 2x. It's worth noting that these performance gains in C are specific to scenarios involving explicit vectorization and would likely be even greater when utilizing multithreading.
 
-For context, NumPy's performance in this type of CPU-bound scenario, where entire matrices are passed to functions, is closer to what one might observe in environments like Matlab or Octave without explicit GPU acceleration. While Matlab offers relatively straightforward multithreading options, achieving comparable parallelism in Octave can be more involved.
+For context, NumPy's performance in this type of single-threaded, CPU-bound scenario—where entire matrices are passed to functions—is closer to what one might observe in environments like Matlab or Octave without explicit GPU acceleration. While Matlab offers relatively straightforward multithreading options, achieving comparable parallelism in Octave can be more involved.
 
+NumPy primarily works with the **CPU**. To offload computations to a **GPU**, you'd typically use other libraries that interface with NumPy arrays, such as **CuPy**, **Numba**, or **PyTorch**.
 
-### Key Observations
+---
 
-#### 1. Performance
+# Faster Python Libraries with Multithreading and GPU Support
+
+## CuPy
+
+- **GPU Powerhouse**:  
+  CuPy is designed specifically for **NVIDIA GPUs**. It provides a NumPy-like API, making it relatively easy to port existing NumPy code to run on a GPU.
+  
+- **Multithreading**:  
+  CuPy can often utilize multiple **GPU streams** for parallel execution, significantly speeding up computations.
+
+## Numba
+
+- **JIT (Just-In-Time) Compilation**:  
+  Numba compiles Python code (including NumPy code) to machine code on the fly, often resulting in significant speed improvements, especially for loops and numerical functions.
+
+- **Multithreading (CPUs)**:  
+  Numba can easily parallelize code using the `@njit(parallel=True)` decorator for **CPU-bound tasks**.
+
+- **GPU Support**:  
+  Numba can also target **NVIDIA GPUs** using the `@cuda.jit` decorator for **GPU-bound computations**.
+
+## JAX
+
+- **High-Performance Computing**:  
+  Developed by **Google**, JAX excels at **numerical computations**, **automatic differentiation** (for machine learning), and compiling code to run on **CPUs, GPUs**, and **TPUs**.
+
+- **Multithreading and GPU**:  
+  JAX handles parallelization and device management transparently, making it easier to scale your computations across devices.
+
+## PyTorch
+
+- **Deep Learning Powerhouse**:  
+  Primarily known for **deep learning**, PyTorch also provides powerful **array operations** and can leverage **GPUs** seamlessly.
+
+- **Multithreading and Distributed Computing**:  
+  PyTorch excels at **multithreading** and **distributed computing**, making it suitable for large-scale machine learning tasks.
+
+---
+
+## Summary
+
+These libraries offer powerful solutions for accelerating numerical computations and machine learning workflows by utilizing **multithreading** and **GPU acceleration**:
+
+- Use **CuPy** for **GPU-centric** tasks that are similar to NumPy.
+- **Numba** is a great option for **JIT compilation** and CPU/GPU versatility with minimal changes to your code.
+- **JAX** excels in **high-performance computing** with support for **automatic differentiation** and scalability across different hardware.
+- **PyTorch** is ideal for **deep learning** and leveraging **GPU-accelerated** computations in machine learning tasks.
+
+---
+
+## Key Observations
+
+### 1. Performance
+
 Approximations and alternatives are usually significantly faster than the original sigmoid.
 
-#### 2. Accuracy
-- Linear approximation: Fastest but least accurate.
-- Polynomial approximation: Good balance between speed and accuracy.
-- ReLU: Very fast but has different behavior, which can affect model performance unpredictably.
+### 2. Accuracy
 
-#### 3. Impact on Algorithms
-- For logistic regression, an accurate sigmoid approximation can maintain good model precision while significantly improving performance.
-- In neural networks, functions like ReLU have gained popularity not only for their computational efficiency but also because they can help mitigate problems like gradient vanishing.
+- **Linear approximation**: Fastest but least accurate.
+- **Polynomial approximation**: Good balance between speed and accuracy.
+- **ReLU**: Very fast but has different behavior, which can affect model performance unpredictably.
 
-#### 4. Practical Considerations
-- The choice between precision and speed depends on the specific problem and application requirements.
-- In many practical cases, especially in deep learning, alternatives like ReLU have proven to be very effective, often outperforming sigmoid in terms of model performance and computational efficiency.
+### 3. Impact on Algorithms
 
-### Summary
-While simplifying or substituting the sigmoid function can affect precision, there are alternatives that offer a good balance between computational performance and model accuracy. The optimal choice will depend on the specific problem and application requirements.
+- For **logistic regression**, an accurate sigmoid approximation can maintain good model precision while significantly improving performance.
+- In **neural networks**, functions like **ReLU** have gained popularity not only for their computational efficiency but also because they can help mitigate problems like gradient vanishing.
+
+### 4. Practical Considerations
+
+- The choice between **precision** and **speed** depends on the specific problem and application requirements.
+- In many practical cases, especially in **deep learning**, alternatives like **ReLU** have proven to be very effective, often outperforming sigmoid in terms of model performance and computational efficiency.
+
+---
+
+## Summary
+
+While simplifying or substituting the sigmoid function can affect precision, there are alternatives that offer a good balance between **computational performance** and **model accuracy**. The optimal choice will depend on the specific problem and application requirements.
 
 
