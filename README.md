@@ -148,7 +148,7 @@ plt.show()
 ![Sigmoid comparison](https://github.com/antor44/sigmoid-comparison/blob/main/sigmoid_comparison.jpg)
 
 
-The output graph compares the performance of common activation functions calculated with Python's NumPy library. While NumPy is lauded for its user-friendliness, this comparison highlights a crucial consideration: the potential performance gap compared to optimized low-level implementations.
+The output graph visualizes several common activation functions, calculated here using Python's NumPy library. While NumPy is favored for its ease of use and versatility, a deeper look reveals a crucial performance consideration: the potential speed differences compared to highly optimized low-level implementations.
 
 In this benchmark, we measured the time taken to perform calculations on 1 million elements, repeating the process 100,000 times, and writing the final 1 million results to a file. The differences were significant. Our optimized C code leveraging AVX2 instructions consistently outperformed NumPy, even when limited to a single thread, often by a factor of 10x or more. The performance advantages of the C code would become even more pronounced with multithreading, as it could effectively utilize multiple CPU cores.
 
