@@ -13,7 +13,7 @@ For higher precision variables beyond double precision, such as [quad precision 
 
 ## Programming Language Comparison (Single-threaded implementations):
 
-![pi_cam_preview_usb.py](https://github.com/antor44/sigmoid-comparison/blob/main/Test_ML_algorithm.jpg)
+![Single-threaded somparison](https://github.com/antor44/sigmoid-comparison/blob/main/Test_ML_algorithm.jpg)
 
 MATLAB and Octave algorithms are evaluated in three modes: by passing an entire matrix to the exp function, by passing columns or rows, and by passing each matrix element individually.
 
@@ -28,7 +28,7 @@ The gcc AVX2 code is based on the same algorithm as avx_mathfun. It utilizes ran
 
 ## Comparison of C Multithreading Codes from Different Approaches, same base algorithm:
 
-![pi_cam_capture_usb.py](https://github.com/antor44/sigmoid-comparison/blob/main/exp_test3.jpg)
+![Multithreading comparison](https://github.com/antor44/sigmoid-comparison/blob/main/exp_test3.jpg)
 
 
 All codes are either based on the same algorithm or share the same relative error within the input range of [-5, 5]. The gcc exp (double) and gcc expf (float) codes rely on functions from the standard mathematical library in C. The gcc SSE2 (4x float) code is based on the well-known [Julien Pommier library](http://gruntthepeon.free.fr/ssemath/). The gcc AVX2 (8x float) is also based on the same algorithm as avx_mathfun, offering parallel computation of exponentials.
@@ -59,6 +59,8 @@ There are various approximations and alternatives to the sigmoid function:
 - Alternative functions like ReLU often offer a good balance between computational efficiency and model performance.
 
 ### Comparison of Sigmoid Function Approximations
+
+This code compares the original sigmoid function with some approximations and alternatives, measuring both execution time and accuracy (through mean squared error):
 
 ```python
 import numpy as np
@@ -142,9 +144,23 @@ plt.ylabel("y")
 plt.show()
 ```
 
+![Sigmoid comparison](https://github.com/antor44/sigmoid-comparison/blob/main/sigmoid_comparison.jpg)
 
 
-This code compares the original sigmoid function with some approximations and alternatives, measuring both execution time and accuracy (through mean squared error).
+
+The output graph compares the execution speed of different activation functions using Python's NumPy library. While NumPy is popular for its user-friendliness, it's important to understand how its performance compares to optimized low-level code.
+
+To put this into context, we measured the time taken to perform calculations on 1 million elements, repeating the process 100,000 times to amplify any performance differences. We then wrote the final 1 million results to a file once, ensuring a consistent and realistic workload. The differences were striking:
+
+Our optimized C code using AVX2 instructions significantly outperformed NumPy, even when the C code used only a single thread.
+
+With multithreading, the performance gap between C and NumPy would become even larger, as the C code could more effectively leverage the available CPU cores.
+
+For reference, NumPy's performance in this single-threaded, CPU-bound benchmark is closer to what you might observe in environments like Matlab or Octave without explicit GPU acceleration. While Matlab provides relatively straightforward multithreading options, achieving comparable parallelism in Octave is generally more complex.
+
+Key Takeaway? When maximum performance is paramount, the benefits of lower-level optimizations and parallel programming techniques become clear, especially when compared to high-level libraries like NumPy.
+
+
 
 ### Key Observations
 
