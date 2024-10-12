@@ -157,9 +157,11 @@ For context, NumPy's performance in this type of single-threaded, CPU-bound scen
 ---
 ## Curious Experiment: Simple Multithreading with a Bash Script
 
+## Curious Experiment: Simple Multithreading with a Bash Script
+
 This Bash script is more of a curiosity than a rigorous test, but it's a fun way to explore how you can simulate multithreading or leverage multi-core CPUs with single-threaded executables. It launches multiple instances of a single-threaded program (`a.out`) in parallel and measures the total execution time in seconds.
 
-While it’s not a precise benchmarking tool, it’s a quick way to find the maximum speed that can be achieved on a given CPU using multithreading or multi-core execution with a single-threaded program.
+While this isn’t a precise benchmarking tool, it provides a quick look at how multiple instances of a single-threaded program perform when distributed across different CPU cores. Note that this script doesn’t optimize for true multithreading; it simply runs multiple processes in parallel, so it’s a lightweight experiment rather than a robust performance test.
 
 
 ```bash
