@@ -155,7 +155,6 @@ To illustrate this, we measured the time taken to perform calculations on one mi
 For context, NumPy's performance in this type of single-threaded, CPU-bound scenario—where entire matrices are passed to functions—is closer to what one might observe in environments like Matlab or Octave without explicit GPU acceleration. While Matlab offers relatively straightforward multithreading options, achieving comparable parallelism in Octave can be more involved.
 
 ---
-## Curious Experiment: Simple Multithreading with a Bash Script
 
 ## Curious Experiment: Simple Multithreading with a Bash Script
 
