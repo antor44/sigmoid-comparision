@@ -154,11 +154,49 @@ To illustrate this, we measured the time taken to perform calculations on one mi
 
 For context, NumPy's performance in this type of single-threaded, CPU-bound scenario—where entire matrices are passed to functions—is closer to what one might observe in environments like Matlab or Octave without explicit GPU acceleration. While Matlab offers relatively straightforward multithreading options, achieving comparable parallelism in Octave can be more involved.
 
-NumPy primarily works with the **CPU**. To offload computations to a **GPU**, you'd typically use other libraries that interface with NumPy arrays, such as **CuPy**, **Numba**, or **PyTorch**.
+---
+## Curious Experiment: Simple Multithreading with a Bash Script
+
+This Bash script is more of a curiosity than a rigorous test, but it's a fun way to explore how you can simulate multithreading or leverage multi-core CPUs with single-threaded executables. It launches multiple instances of a single-threaded program (`a.out`) in parallel and measures the total execution time in seconds.
+
+While it’s not a precise benchmarking tool, it’s a quick way to find the maximum speed that can be achieved on a given CPU using multithreading or multi-core execution with a single-threaded program.
+
+
+```bash
+#!/bin/bash
+
+cores=4
+
+# Record the start time
+start_time=$(date +%s)
+
+echo "Start time:"
+date
+
+# Loop to launch processes
+for (( c=1; c<=cores; c++ ))
+do
+    ./a.out >> output.txt &
+done
+
+# Wait for all background processes to finish
+wait
+
+# Record the end time
+end_time=$(date +%s)
+
+# Calculate the elapsed time in seconds
+elapsed_time=$(( end_time - start_time ))
+
+echo
+echo "Execution time [seconds]= $elapsed_time"
+```
 
 ---
 
 # Faster Python Libraries with Multithreading and GPU Support
+
+NumPy primarily works with the **CPU**. To offload computations to a **GPU**, you'd typically use other libraries that interface with NumPy arrays, such as **CuPy**, **Numba**, or **PyTorch**.
 
 ## CuPy
 
