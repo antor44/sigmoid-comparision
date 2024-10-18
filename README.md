@@ -273,6 +273,5 @@ Approximations and alternatives are usually significantly faster than the origin
 
 ## Summary
 
-While simplifying or substituting the sigmoid function can affect precision, there are alternatives that offer a good balance between **computational performance** and **model accuracy**. The optimal choice will depend on the specific problem and application requirements.
-
+While simplifying or substituting the sigmoid function can affect precision, there are alternatives that offer a good balance between **computational performance** and **model accuracy**. The optimal choice will depend on the specific problem and application requirements. It also notes that the performance of the experiment may vary significantly depending on the programming language, libraries, compiler implementation, runtime environment, and processor architecture.
 
