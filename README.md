@@ -91,7 +91,7 @@ functions = [
     ("ReLU", relu)
 ]
 
-print(f"Calculating for {num_points_calc:,} elements with NumPy (repeated 10,000 times), please wait...\n")
+print(f"Calculating for {num_points_calc:,} elements with NumPy (repeated 100,000 times), please wait...\n")
 
 results = []
 num_repeats = 100000  # Number of times to repeat the calculation
@@ -106,13 +106,16 @@ for name, func in functions:
     end = time()
     calculation_time = end - start
 
+    # Calculate exp(x) for the current x_calc
+    exp_x = np.exp(x_calc)
 
-    # Write results to file only once after calculation
+    # Write results to file, use a unique filename for each function
+    file_name = f"results_{name.replace(' ', '_').lower()}.txt"
     start_writing = time()
-    with open("results.txt", "w") as f:
+    with open(file_name, "w") as f:
         for i in range(num_points_calc):
-            # Format the output as requested
-            f.write(f"x={x_calc[i]:.6f}, e^x={y[i]:.20f}\n") 
+            # Format the output to include x, exp(x), and the function result
+            f.write(f"x={x_calc[i]:.6f}, exp(x)={exp_x[i]:.20f}, {name}={y[i]:.20f}\n")
     end_writing = time()
     writing_time = end_writing - start_writing
     
@@ -150,7 +153,9 @@ plt.show()
 
 The output graph visualizes several common activation functions, calculated here using Python's NumPy library. While NumPy is favored for its ease of use and versatility, a deeper look reveals a crucial performance consideration: the potential speed differences compared to highly optimized low-level implementations.
 
-To illustrate this, we measured the time taken to perform calculations on one million 32-bit (single-precision) floating-point elements, repeating the process 100,000 times, and writing the final results to a file. Our optimized C code, leveraging AVX2 instructions, consistently outperformed the single-threaded NumPy implementation by approximately a factor of 2x. It's worth noting that these performance gains in C are specific to scenarios involving explicit vectorization and would likely be even greater when utilizing multithreading.
+To illustrate this, we measured the time taken to perform calculations on one million 32-bit (single-precision) floating-point elements, repeating the process 100,000 times, and writing the final results to a file. Our optimized C code, leveraging AVX2 instructions, consistently outperformed the single-threaded NumPy implementation by approximately a factor of 2x.
+
+In the case of the sigmoid function, the computation involves an additional addition and division in the calculation of exp(x) (as it computes 1 / (1 + exp(-x))). Despite these extra operations, they can be optimized effectively to add only about 20-50% overhead. This is possible through hardware-level optimizations like SIMD (Single Instruction, Multiple Data) instructions, which can parallelize these operations across multiple data points in a single cycle. Division, though generally slower than multiplication or addition, can still be optimized using approximation techniques or fused operations in certain hardware, making the overall performance impact minimal. When utilizing multithreading, the speedup is almost perfectly linear, with gains scaling 1:1 relative to the number of CPU cores available.
 
 For context, NumPy's performance in this type of single-threaded, CPU-bound scenario—where entire matrices are passed to functions—is closer to what one might observe in environments like Matlab or Octave without explicit GPU acceleration. While Matlab offers relatively straightforward multithreading options, achieving comparable parallelism in Octave can be more involved.
 
