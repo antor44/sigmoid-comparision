@@ -243,7 +243,6 @@ NumPy primarily works with the **CPU**. To offload computations to a **GPU**, yo
 
 ---
 
-## Summary
 
 These libraries offer powerful solutions for accelerating numerical computations and machine learning workflows by utilizing **multithreading** and **GPU acceleration**:
 
